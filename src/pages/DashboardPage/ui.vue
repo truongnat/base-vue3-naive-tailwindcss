@@ -1,13 +1,11 @@
+<template>
+  <div>DashboardPage</div>
+</template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   export default defineComponent({
-    components: {},
+    name: 'DashboardPage',
   });
 </script>
-
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
-</template>
+<style lang="css"></style>
