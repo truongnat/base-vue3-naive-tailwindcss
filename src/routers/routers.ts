@@ -3,6 +3,7 @@ import LandingPage from '../pages/LandingPage/ui.vue';
 import DashboardPage from '../pages/DashboardPage/ui.vue';
 
 import ErrorPage from '../pages/ErrorPage/ui.vue';
+import NotFoundPage from '../pages/ErrorPage/NotFoundPage/ui.vue';
 
 export const routers: Array<RouteRecordRaw> = [
   {
@@ -20,10 +21,10 @@ export const routers: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFoundPage',
-    component: ErrorPage,
+    component: NotFoundPage,
   },
   {
-    path: '/error/:status',
+    path: '/error/:statusCode',
     name: 'ErrorPage',
     component: ErrorPage,
   },

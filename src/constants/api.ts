@@ -4,4 +4,5 @@ export enum StatusCode {
   BadRequest = 400,
   ServerError = 500,
   Success = 200,
+  Error = 'error',
 }
