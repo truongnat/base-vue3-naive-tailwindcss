@@ -6,6 +6,11 @@
 
   export default defineComponent({
     name: 'LandingPage',
+    computed: {
+      test() {
+        return import.meta.env.VITE_BASE_URL;
+      },
+    },
   });
 </script>
 <style lang="css"></style>

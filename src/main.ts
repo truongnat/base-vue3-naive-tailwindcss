@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApp } from 'vue';
 
+// @ts-ignore
 import App from './App.vue';
 import './assets/styles/global.css';
 import naive from 'naive-ui';
