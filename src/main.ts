@@ -8,6 +8,9 @@ import naive from 'naive-ui';
 import 'vfonts/FiraCode.css';
 
 import routers from './routers';
+import { api } from './config/api';
+
+// api.auth.login().catch((e) => console.log('err', e));
 
 const app = createApp(App);
 app.use(naive).use(routers);

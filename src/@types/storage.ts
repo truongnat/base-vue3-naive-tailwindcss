@@ -13,6 +13,7 @@ export interface ISpStorageMethod {
   [SUPPORT_METHOD.SET_MUL]: (args: argsMul[]) => void;
   [SUPPORT_METHOD.UPDATE_MUL]: (args: argsMul[]) => void;
   [SUPPORT_METHOD.DELETE_MUl]: (keys: (keyof IStorageKeys)[]) => void;
+  [SUPPORT_METHOD.DELETE_ALL]: () => void;
 }
 
 export type ConfigStorage = {

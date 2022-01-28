@@ -13,8 +13,10 @@ export enum SUPPORT_METHOD {
   SET_MUL = 'setMul',
   UPDATE_MUL = 'updateMul',
   DELETE_MUl = 'deleteMul',
+  DELETE_ALL = 'deleteAll',
 }
 
 export enum STORAGE_KEYS {
-  Tk = 'tk',
+  TK = 'tk',
+  LANG = 'lang',
 }

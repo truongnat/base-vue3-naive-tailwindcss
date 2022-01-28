@@ -49,6 +49,9 @@ export const StorageUtils: ConfigStorage = {
         this.delete(k);
       });
     },
+    deleteAll() {
+      localStorage.clear();
+    },
   },
   sessionStorage: {
     get(key) {
@@ -95,6 +98,9 @@ export const StorageUtils: ConfigStorage = {
       keys.forEach((k) => {
         this.delete(k);
       });
+    },
+    deleteAll() {
+      sessionStorage.clear();
     },
   },
 };
