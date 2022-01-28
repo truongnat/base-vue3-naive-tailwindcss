@@ -1,82 +1,100 @@
-import { ConfigStorage } from 'src/@types/storage';
+/* eslint-disable no-self-assign */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { argsMul, ConfigStorage } from 'src/@types/storage';
 
 export const StorageUtils: ConfigStorage = {
   localStorage: {
-    get() {
-      //
+    get(key) {
+      return localStorage.getItem(key) || '';
     },
-    set() {
-      //
+    set(key, value) {
+      localStorage.setItem(key, value);
     },
-    update() {
-      //
+    update(key, value) {
+      localStorage.setItem(key, value);
     },
-    delete() {
-      //
+    delete(key) {
+      localStorage.removeItem(key);
     },
-    selectMul() {
-      //
+    selectMul(keys) {
+      const output: argsMul[] = [];
+      keys.forEach((k) => {
+        output.push({
+          [k]: this.get(k),
+        });
+      });
+      return output;
     },
-    setMul() {
-      //
+    setMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      keys.forEach((item: argsMul) => {
+        const key = Object.keys(item)[0];
+        // @ts-ignore
+        this.set(key, item[key]);
+      });
     },
-    updateMul() {
-      //
+    updateMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      this.setMul(keys);
     },
-    deleteMul() {
-      //
+    deleteMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      keys.forEach((k) => {
+        this.delete(k);
+      });
     },
   },
   sessionStorage: {
-    get() {
-      //
+    get(key) {
+      return sessionStorage.getItem(key) || '';
     },
-    set() {
-      //
+    set(key, value) {
+      sessionStorage.setItem(key, value);
     },
-    update() {
-      //
+    update(key, value) {
+      this.set(key, value);
     },
-    delete() {
-      //
+    delete(key) {
+      sessionStorage.removeItem(key);
     },
-    selectMul() {
-      //
+    selectMul(keys) {
+      const output: argsMul[] = [];
+      keys.forEach((k) => {
+        output.push({
+          [k]: this.get(k),
+        });
+      });
+      return output;
     },
-    setMul() {
-      //
+    setMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      keys.forEach((item: argsMul) => {
+        const key = Object.keys(item)[0];
+        // @ts-ignore
+        this.set(key, item[key]);
+      });
     },
-    updateMul() {
-      //
+    updateMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      this.setMul(keys);
     },
-    deleteMul() {
-      //
-    },
-  },
-  cookieStorage: {
-    get() {
-      //
-    },
-    set() {
-      //
-    },
-    update() {
-      //
-    },
-    delete() {
-      //
-    },
-    selectMul() {
-      //
-    },
-    setMul() {
-      //
-    },
-    updateMul() {
-      //
-    },
-    deleteMul() {
-      //
+    deleteMul(keys) {
+      if (!keys.length) {
+        return;
+      }
+      keys.forEach((k) => {
+        this.delete(k);
+      });
     },
   },
 };

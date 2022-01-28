@@ -20,6 +20,7 @@
   },
   "plugins": [],
   "rules": {
-    "semi": 2
+    "semi": 2,
+    "ban-ts-ignore": 0
   }
 }
