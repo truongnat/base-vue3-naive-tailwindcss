@@ -89,7 +89,7 @@ const injectErrorResponse = async (error: AxiosError) => {
 };
 
 class Http {
-  constructor(private passBaseURL: string) {}
+  constructor(private passBaseURL?: string) {}
   private instance: AxiosInstance | null = null;
 
   private get http(): AxiosInstance {
@@ -109,6 +109,42 @@ class Http {
     this.instance = http;
     return http;
   }
+
+  request<T = any, R = AxiosRequestConfig<T>>(
+    config: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.request(config);
+  }
+
+  get<T = any, R = AxiosResponse<T>>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.get<T, R>(url, config);
+  }
+
+  post<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: T,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.post<T, R>(url, data, config);
+  }
+
+  put<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: T,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.put<T, R>(url, data, config);
+  }
+
+  delete<T = any, R = AxiosResponse<T>>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.delete<T, R>(url, config);
+  }
 }
 
-export { ApiClient };
+export { ApiClient, Http };

@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <div id="app">
+  <n-message-provider>
     <router-view></router-view>
-  </div>
+  </n-message-provider>
 </template>
