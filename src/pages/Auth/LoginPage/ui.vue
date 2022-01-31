@@ -2,7 +2,7 @@
   import { useMessage } from 'naive-ui';
   import { defineComponent, ref } from 'vue';
 
-  import { ROLE_LIST } from '../../../constants';
+  import { ROLE_LIST } from '@constants';
 
   export default defineComponent({
     name: 'LoginPage',

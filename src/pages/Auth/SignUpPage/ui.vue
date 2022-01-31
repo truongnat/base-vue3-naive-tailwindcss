@@ -2,7 +2,7 @@
   import { defineComponent, ref } from 'vue';
   import { FormRules, useMessage } from 'naive-ui';
 
-  import { ROLE_LIST } from '../../../constants';
+  import { ROLE_LIST } from '@constants';
 
   export default defineComponent({
     name: 'SignUpPage',

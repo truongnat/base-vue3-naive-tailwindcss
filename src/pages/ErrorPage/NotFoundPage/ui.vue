@@ -1,3 +1,12 @@
+<script lang="ts">
+  import { defineComponent } from 'vue';
+
+  export default defineComponent({
+    name: 'NotFoundPage',
+    computed: {},
+  });
+</script>
+
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
     <n-result
@@ -11,11 +20,3 @@
     </n-result>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    name: 'NotFoundPage',
-    computed: {},
-  });
-</script>

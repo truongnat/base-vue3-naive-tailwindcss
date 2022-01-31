@@ -1,6 +1,6 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { StatusCode } from '../../constants';
+  import { StatusCode } from '@constants';
 
   export default defineComponent({
     name: 'ServerErrorPage',

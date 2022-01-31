@@ -5,8 +5,8 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import { API_TIMEOUT, baseURL, StatusCode } from '../../constants';
-import { StorageUtils } from '../../utils';
+import { API_TIMEOUT, baseURL, StatusCode } from '@constants';
+import { StorageUtils } from '@utils';
 
 const ApiClient = axios.create({
   baseURL: baseURL,

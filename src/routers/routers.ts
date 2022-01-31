@@ -1,12 +1,14 @@
-import { PagesKey } from './../constants/pages';
+import { PagesKey } from '@constants';
 import { RouteRecordRaw } from 'vue-router';
 
-import LandingPage from '../pages/LandingPage/ui.vue';
-import DashboardPage from '../pages/DashboardPage/ui.vue';
-import ErrorPage from '../pages/ErrorPage/ui.vue';
-import NotFoundPage from '../pages/ErrorPage/NotFoundPage/ui.vue';
-import LoginPage from '../pages/Auth/LoginPage/ui.vue';
-import SignUpPage from '../pages/Auth/SignUpPage/ui.vue';
+import {
+  DashboardPage,
+  ErrorPage,
+  LandingPage,
+  LoginPage,
+  NotFoundPage,
+  SignUpPage,
+} from '@pages';
 
 export const routers: Array<RouteRecordRaw> = [
   {

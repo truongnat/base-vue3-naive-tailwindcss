@@ -1,6 +1,3 @@
-<template>
-  <div>LandingPage</div>
-</template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
@@ -13,4 +10,8 @@
     },
   });
 </script>
+
+<template>
+  <div>LandingPage</div>
+</template>
 <style lang="css"></style>

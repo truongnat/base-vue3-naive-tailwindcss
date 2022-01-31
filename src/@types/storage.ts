@@ -1,4 +1,4 @@
-import { SUPPORT_METHOD, SP_STORAGE } from 'src/constants';
+import { SUPPORT_METHOD, SP_STORAGE } from '@constants';
 export interface ISpStorage {
   [SP_STORAGE.LOCAL_STORAGE]: string;
   [SP_STORAGE.SESSION_STORAGE]: string;

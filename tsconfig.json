@@ -12,6 +12,35 @@
     "jsx": "preserve",
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@types": [
+        "./src/@types/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@components": [
+        "./src/components"
+      ],
+      "@config": [
+        "./src/config"
+      ],
+      "@constants": [
+        "./src/constants"
+      ],
+      "@pages": [
+        "./src/pages"
+      ],
+      "@services": [
+        "./src/services"
+      ],
+      "@utils": [
+        "./src/utils"
+      ]
+    },
     "lib": [
       "esnext",
       "dom",
