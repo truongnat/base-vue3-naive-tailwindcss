@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { useMessage } from 'naive-ui';
+  import { useMessage, FormValidationError } from 'naive-ui';
   import { defineComponent, ref } from 'vue';
 
   import { ROLE_LIST } from '@constants';
+  import { IFormLogin, init_form, rules_validation } from './data';
 
   export default defineComponent({
     name: 'LoginPage',
@@ -12,39 +13,18 @@
       return {
         formRefLogin,
         size: ref('medium'),
-        model: ref({
-          username: null,
-          password: null,
-          roleType: null,
-          saveLogin: false,
-        }),
+        model: ref<IFormLogin>({ ...init_form }),
         generalOptions: ROLE_LIST.map((v) => ({
           label: v,
           value: v,
         })),
-        rules: {
-          username: {
-            required: true,
-            trigger: ['blur', 'input'],
-            message: 'Please input username',
-          },
-          password: {
-            required: true,
-            trigger: ['blur', 'input'],
-            message: 'Please input password',
-          },
-          roleType: {
-            required: true,
-            trigger: ['blur', 'change'],
-            message: 'Please select roleType',
-          },
-        },
+        rules: rules_validation,
         handleValidateButtonClick(e: Event) {
           e.preventDefault();
-          formRefLogin.value.validate((errors: any) => {
+          formRefLogin.value.validate((errors: FormValidationError) => {
             if (!errors) {
               message.success('Valid');
-              console.log('form ref : ', formRefLogin.value.model);
+              console.log('form ref : ', formRefLogin);
             } else {
               console.log(errors);
               message.error('Invalid');

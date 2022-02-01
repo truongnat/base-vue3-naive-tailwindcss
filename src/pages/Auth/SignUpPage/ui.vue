@@ -1,21 +1,17 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { FormRules, useMessage } from 'naive-ui';
+  import { FormRules, FormValidationError, useMessage } from 'naive-ui';
 
   import { ROLE_LIST } from '@constants';
+  import { IModelSignUp, init_form, _render_rules_validation } from './data';
 
   export default defineComponent({
     name: 'SignUpPage',
     setup() {
-      const formRefSignUp = ref(null);
-      const rPasswordFormItemRef = ref(null);
+      const formRefSignUp = ref<any>(null);
+      const rPasswordFormItemRef = ref<any>(null);
       const message = useMessage();
-      const modelRef = ref({
-        username: null,
-        password: null,
-        reenteredPassword: null,
-        roleType: null,
-      });
+      const modelRef = ref<IModelSignUp>({ ...init_form });
       function validatePasswordStartWith(rule: FormRules, value: string) {
         return (
           modelRef.value.password &&
@@ -36,40 +32,10 @@
           value: v,
         })),
         rules: {
-          username: {
-            required: true,
-            trigger: ['blur', 'input'],
-            message: 'Please input username',
-          },
-
-          password: [
-            {
-              required: true,
-              message: 'Password is required',
-            },
-          ],
-          reenteredPassword: [
-            {
-              required: true,
-              message: 'Re-entered password is required',
-              trigger: ['input', 'blur'],
-            },
-            {
-              validator: validatePasswordStartWith,
-              message: 'Password is not same as re-entered password!',
-              trigger: 'input',
-            },
-            {
-              validator: validatePasswordSame,
-              message: 'Password is not same as re-entered password!',
-              trigger: ['blur', 'password-input'],
-            },
-          ],
-          roleType: {
-            required: true,
-            trigger: ['blur', 'change'],
-            message: 'Please select roleType',
-          },
+          ..._render_rules_validation(
+            validatePasswordStartWith,
+            validatePasswordSame
+          ),
         },
         handlePasswordInput() {
           if (modelRef.value.reenteredPassword) {
@@ -78,7 +44,7 @@
         },
         handleValidateButtonClick(e: Event) {
           e.preventDefault();
-          formRefSignUp.value.validate((errors: any) => {
+          formRefSignUp.value.validate((errors: FormValidationError) => {
             if (!errors) {
               message.success('Valid');
             } else {

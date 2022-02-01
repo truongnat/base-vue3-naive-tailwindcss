@@ -1,6 +1,6 @@
 /* eslint-disable no-self-assign */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { argsMul, ConfigStorage } from 'src/@types/storage';
+import { argsMul, ConfigStorage } from '@/@types/storage';
 
 export const StorageUtils: ConfigStorage = {
   localStorage: {
