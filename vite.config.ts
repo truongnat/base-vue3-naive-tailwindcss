@@ -20,6 +20,7 @@ export default defineConfig(() => {
         '@services': `${resolve(__dirname, 'src/services/')}`,
         '@utils': `${resolve(__dirname, 'src/utils/')}`,
         '@store': `${resolve(__dirname, 'src/store/')}`,
+        '@lang': `${resolve(__dirname, 'src/lang')}`,
       },
       extensions: ['.js', '.ts', '.vue', '.json'],
     },

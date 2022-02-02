@@ -14,6 +14,7 @@
         this.$store.dispatch(ROOT_STORE.ACTIONS.LOADING, {
           loading: true,
         });
+        this.$i18n.locale = 'vi';
       },
     },
   });
@@ -21,6 +22,6 @@
 
 <template>
   <div>LandingPage</div>
-  <n-button @click="testStore">click me</n-button>
+  <n-button @click="testStore">{{ $t('common.save') }}</n-button>
 </template>
 <style lang="css"></style>

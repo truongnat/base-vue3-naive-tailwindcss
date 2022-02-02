@@ -42,6 +42,9 @@
       ],
       "@store": [
         "./src/store"
+      ],
+      "@lang": [
+        "./src/lang"
       ]
     },
     "lib": [
@@ -64,7 +67,10 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "shim-vue.d.ts"
+    "shim-vue.d.ts",
+    "env.d.ts",
+    "global.d.ts",
+    "shim-vuex.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -4,3 +4,4 @@ export * from './storage';
 export * from './guards';
 export * from './env';
 export * from './store';
+export * from './lang';
