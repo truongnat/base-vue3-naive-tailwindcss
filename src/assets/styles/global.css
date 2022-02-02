@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.visually-hidden {
+  @apply absolute w-0 h-0 overflow-hidden -z-10;
+  clip: rect(0, 0, 0, 0);
+}

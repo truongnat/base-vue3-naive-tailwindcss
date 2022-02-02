@@ -5,3 +5,6 @@ export * from './guards';
 export * from './env';
 export * from './store';
 export * from './lang';
+export * from './dateTime';
+export * from './platform';
+export * from './keys';

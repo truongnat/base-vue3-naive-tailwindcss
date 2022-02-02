@@ -1,0 +1,32 @@
+export const IGNORED_KEYS: Record<string, boolean> = {
+  Down: true,
+  ArrowDown: true,
+  Up: true,
+  ArrowUp: true,
+  Left: true,
+  ArrowLeft: true,
+  Right: true,
+  ArrowRight: true,
+  ' ': true,
+  PageUp: true,
+  PageDown: true,
+  End: true,
+  Home: true,
+  Tab: true,
+};
+
+export const inputTypes = [
+  'text',
+  'password',
+  'number',
+  'email',
+  'tel',
+  'url',
+  'search',
+  'date',
+  'datetime',
+  'datetime-local',
+  'time',
+  'month',
+  'week',
+];
