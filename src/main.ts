@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 
+import './config/firebases/';
+
 import App from './App.vue';
 
 import './assets/styles/global.css';
