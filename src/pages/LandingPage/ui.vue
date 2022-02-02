@@ -25,7 +25,7 @@
 
 <template>
   <div>LandingPage</div>
-  <div>{{ PLATFORM_ENV }}</div>
+  <div>{{ test }}</div>
   <n-button @click="testStore">{{ $t('common.save') }}</n-button>
 </template>
 <style lang="css"></style>
