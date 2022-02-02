@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { ROOT_STORE } from '@/constants';
+  import { ROOT_STORE, SUPPORT_LANG } from '@/constants';
+  import { _changeLang } from '@/lang';
   import { defineComponent } from 'vue';
 
   export default defineComponent({
@@ -14,7 +15,7 @@
         this.$store.dispatch(ROOT_STORE.ACTIONS.LOADING, {
           loading: true,
         });
-        this.$i18n.locale = 'vi';
+        _changeLang(SUPPORT_LANG.VI);
       },
     },
   });

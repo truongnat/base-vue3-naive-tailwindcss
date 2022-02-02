@@ -1,4 +1,4 @@
-import { SUPPORT_LANG } from '@/constants';
+import { LANG_LIST, SUPPORT_LANG } from '@/constants';
 import { getLocalLang } from '@/utils';
 import { createI18n } from 'vue-i18n';
 
@@ -15,3 +15,11 @@ export const i18n = createI18n<{ message: MessageSchema }, 'en-US' | 'vi-VN'>({
     'vi-VN': viVN,
   },
 });
+
+export function _changeLang(lang: SUPPORT_LANG) {
+  if (!LANG_LIST.includes(lang)) {
+    console.log(`${lang} not support!`);
+    return false;
+  }
+  i18n.global.locale = lang;
+}
