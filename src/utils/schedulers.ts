@@ -1,15 +1,15 @@
-import { AnyToVoidFunction, NoneToVoidFunction } from '@/@types';
+import { NoneToVoidFunction } from '@/@types';
 
-type Scheduler =
+export type Scheduler =
   | typeof requestAnimationFrame
   | typeof onTickEnd
   | typeof runNow;
 
-function onTickEnd(cb: NoneToVoidFunction) {
+export function onTickEnd(cb: NoneToVoidFunction) {
   Promise.resolve().then(cb);
 }
 
-function runNow(fn: NoneToVoidFunction) {
+export function runNow(fn: NoneToVoidFunction) {
   fn();
 }
 
