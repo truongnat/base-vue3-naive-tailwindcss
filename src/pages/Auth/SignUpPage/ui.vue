@@ -3,15 +3,30 @@
   import { FormRules, FormValidationError, useMessage } from 'naive-ui';
 
   import { ROLE_LIST } from '@constants';
-  import { IModelSignUp, init_form, _render_rules_validation } from './data';
+  import {
+    CODE_ERROR,
+    IModelSignUp,
+    init_form,
+    _render_rules_validation,
+  } from './data';
+  import { _isValidEmail } from '@/utils/validation';
+  import { api } from '@config';
+  import { useI18n } from 'vue-i18n';
+  import { StorageUtils } from '@/utils';
+  import { ArrowBack } from '@vicons/ionicons5';
+  import { PagesKey } from '@constants';
 
   export default defineComponent({
     name: 'SignUpPage',
+    components: { ArrowBack },
     setup() {
+      const i18n = useI18n();
       const formRefSignUp = ref<any>(null);
       const rPasswordFormItemRef = ref<any>(null);
       const message = useMessage();
       const modelRef = ref<IModelSignUp>({ ...init_form });
+      const loading = ref(false);
+
       function validatePasswordStartWith(rule: FormRules, value: string) {
         return (
           modelRef.value.password &&
@@ -22,11 +37,16 @@
       function validatePasswordSame(rule: FormRules, value: string) {
         return value === modelRef.value.password;
       }
+      function validateEmail(rule: FormRules, value: string) {
+        return _isValidEmail(value);
+      }
       return {
         formRefSignUp,
         rPasswordFormItemRef,
         size: ref('medium'),
         model: modelRef,
+        loading,
+        PagesKey,
         generalOptions: ROLE_LIST.map((v) => ({
           label: v,
           value: v,
@@ -34,7 +54,8 @@
         rules: {
           ..._render_rules_validation(
             validatePasswordStartWith,
-            validatePasswordSame
+            validatePasswordSame,
+            validateEmail
           ),
         },
         handlePasswordInput() {
@@ -46,10 +67,47 @@
           e.preventDefault();
           formRefSignUp.value.validate((errors: FormValidationError) => {
             if (!errors) {
-              message.success('Valid');
+              loading.value = true;
+              api.auth
+                ._firebaseRegisterUser(
+                  modelRef.value.email as string,
+                  modelRef.value.password as string
+                )
+                .then((result) => {
+                  loading.value = false;
+                  if (result.code === CODE_ERROR.EMAIL_ALREADY) {
+                    message.error(i18n.t('error.email_already'), {
+                      closable: true,
+                      duration: 5000,
+                    });
+                    return;
+                  }
+
+                  message.success(i18n.t('success.user_register'), {
+                    closable: true,
+                    duration: 5000,
+                  });
+
+                  const saveToken = [
+                    {
+                      accessToken: result.user.accessToken,
+                    },
+                    {
+                      refreshToken: result.user.refreshToken,
+                    },
+                  ];
+                  StorageUtils.sessionStorage.setMul(saveToken);
+                  console.dir(result);
+                })
+                .catch(() => {
+                  loading.value = false;
+                  message.error(i18n.t('error.occur_error'), {
+                    closable: true,
+                    duration: 5000,
+                  });
+                });
             } else {
-              console.log(errors);
-              message.error('Invalid');
+              message.error('Invalid Form');
             }
           });
         },
@@ -79,8 +137,8 @@
         SignUp Page
       </n-gradient-text>
 
-      <n-form-item label="username" path="username">
-        <n-input v-model:value="model.username" placeholder="username" />
+      <n-form-item label="email" path="email">
+        <n-input v-model:value="model.email" placeholder="email" />
       </n-form-item>
       <n-form-item label="password" path="password">
         <n-input
@@ -111,8 +169,20 @@
         />
       </n-form-item>
 
-      <div class="flex justify-end">
-        <n-button round type="primary" @click="handleValidateButtonClick">
+      <div class="flex justify-between">
+        <n-button @click="$router.push({ name: PagesKey.LOGIN_PAGE })">
+          <n-icon size="15">
+            <arrow-back />
+          </n-icon>
+          Back Login
+        </n-button>
+        <n-button
+          round
+          type="primary"
+          :disabled="loading"
+          :loading="loading"
+          @click="handleValidateButtonClick"
+        >
           Submit
         </n-button>
       </div>

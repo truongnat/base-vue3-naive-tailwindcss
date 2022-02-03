@@ -4,5 +4,12 @@
     "cancel": "Huỷ",
     "send": "Gửi",
     "connection": "Kết nối"
+  },
+  "error": {
+    "email_already": "Lỗi! Email đã tồn tại, vui lòng thử lại!",
+    "occur_error": "Lỗi! Đã có lỗi xảy ra, vui lòng thử lại!"
+  },
+  "success": {
+    "user_register": "Thành công! Đăng ký người dùng thành công!"
   }
 }

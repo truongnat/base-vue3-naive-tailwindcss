@@ -20,3 +20,26 @@ export const ROOT_STORE = {
   ACTIONS: RootActions,
   MUTATIONS: RootMutations,
 };
+
+/*---------- auth state ----------*/
+
+export enum AuthGetters {
+  IS_LOGIN = 'IS_LOGIN',
+  USER_INFO = 'USER_INFO',
+}
+
+export enum AuthActions {
+  IS_LOGIN = 'IS_LOGIN',
+  USER_INFO = 'USER_INFO',
+}
+
+export enum AuthMutations {
+  IS_LOGIN = 'IS_LOGIN',
+  USER_INFO = 'USER_INFO',
+}
+
+export const AUTH_STORE = {
+  GETTERS: AuthGetters,
+  ACTIONS: AuthActions,
+  MUTATIONS: AuthMutations,
+};

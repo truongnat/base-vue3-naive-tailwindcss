@@ -20,6 +20,7 @@
     "vue-i18n": "^9.2.0-beta.30",
     "vue-router": "4",
     "vue3-cookies": "^1.0.6",
+    "vuejs3-logger": "^1.0.0",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },

@@ -1,15 +1,22 @@
 <script lang="ts">
-  import { useMessage, FormValidationError } from 'naive-ui';
+  import { useMessage, FormValidationError, FormRules } from 'naive-ui';
   import { defineComponent, ref } from 'vue';
 
   import { ROLE_LIST } from '@constants';
-  import { IFormLogin, init_form, rules_validation } from './data';
+  import { IFormLogin, init_form, _render_rules_validation } from './data';
+  import { PagesKey } from '@constants';
+  import { _isValidEmail } from '@/utils';
 
   export default defineComponent({
     name: 'LoginPage',
     setup() {
       const formRefLogin = ref<any>({});
       const message = useMessage();
+
+      function validateEmail(rule: FormRules, value: string) {
+        return _isValidEmail(value);
+      }
+
       return {
         formRefLogin,
         size: ref('medium'),
@@ -18,7 +25,8 @@
           label: v,
           value: v,
         })),
-        rules: rules_validation,
+        PagesKey,
+        rules: { ..._render_rules_validation(validateEmail) },
         handleValidateButtonClick(e: Event) {
           e.preventDefault();
           formRefLogin.value.validate((errors: FormValidationError) => {
@@ -57,8 +65,8 @@
         Login Page
       </n-gradient-text>
 
-      <n-form-item label="username" path="username">
-        <n-input v-model:value="model.username" placeholder="username" />
+      <n-form-item label="email" path="email">
+        <n-input v-model:value="model.email" placeholder="email" />
       </n-form-item>
       <n-form-item label="password" path="password">
         <n-input
@@ -81,7 +89,10 @@
         <n-switch v-model:value="model.saveLogin" />
       </n-form-item>
 
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <n-button @click="$router.push({ name: PagesKey.SIGN_UP_PAGE })">
+          Register
+        </n-button>
         <n-button round type="primary" @click="handleValidateButtonClick">
           Submit
         </n-button>

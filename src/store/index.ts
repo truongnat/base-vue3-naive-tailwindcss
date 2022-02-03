@@ -1,7 +1,7 @@
 import { AppState, Store } from '@/@types';
 import { isDev, isProd } from '@/constants';
 import { createStore, createLogger } from 'vuex';
-import { rootModule } from './modules';
+import { authModule, rootModule } from './modules';
 import createPersistedState from 'vuex-persistedstate';
 import _ from 'lodash';
 
@@ -27,6 +27,7 @@ export const store = createStore<AppState>({
   plugins,
   modules: {
     rootState: rootModule,
+    authState: authModule,
   },
 });
 

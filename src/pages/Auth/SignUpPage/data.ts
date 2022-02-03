@@ -1,5 +1,5 @@
 export interface IModelSignUp {
-  username: string | null;
+  email: string | null;
   password: string | null;
   reenteredPassword: string | null;
   roleType: string | null;
@@ -7,14 +7,22 @@ export interface IModelSignUp {
 
 export function _render_rules_validation(
   validatePasswordStartWith: Function,
-  validatePasswordSame: Function
+  validatePasswordSame: Function,
+  validateEmail: Function
 ) {
   return {
-    username: {
-      required: true,
-      trigger: ['blur', 'input'],
-      message: 'Please input username',
-    },
+    email: [
+      {
+        required: true,
+        trigger: ['blur', 'input'],
+        message: 'Please input email',
+      },
+      {
+        validator: validateEmail,
+        message: 'Email incorrect!',
+        trigger: 'input',
+      },
+    ],
 
     password: [
       {
@@ -47,9 +55,13 @@ export function _render_rules_validation(
   };
 }
 
-export const init_form = {
-  username: null,
+export const init_form: IModelSignUp = {
+  email: null,
   password: null,
   reenteredPassword: null,
   roleType: null,
+};
+
+export const CODE_ERROR = {
+  EMAIL_ALREADY: 'auth/email-already-in-use',
 };

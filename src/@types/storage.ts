@@ -1,4 +1,4 @@
-import { SUPPORT_METHOD, SP_STORAGE } from '@constants';
+import { SUPPORT_METHOD, SP_STORAGE, STORAGE_KEYS } from '@constants';
 export interface ISpStorage {
   [SP_STORAGE.LOCAL_STORAGE]: string;
   [SP_STORAGE.SESSION_STORAGE]: string;
@@ -24,6 +24,8 @@ export type argsMul = {
   [Key in keyof IStorageKeys]: any;
 };
 export interface IStorageKeys {
-  tk?: string;
-  lang?: string;
+  [STORAGE_KEYS.TK]?: string;
+  [STORAGE_KEYS.LANG]?: string;
+  [STORAGE_KEYS.ACCESS_TOKEN]?: string;
+  [STORAGE_KEYS.REFRESH_TOKEN]?: string;
 }

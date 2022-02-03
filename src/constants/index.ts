@@ -8,3 +8,4 @@ export * from './lang';
 export * from './dateTime';
 export * from './platform';
 export * from './keys';
+export * from './regex';

@@ -19,4 +19,6 @@ export enum SUPPORT_METHOD {
 export enum STORAGE_KEYS {
   TK = 'tk',
   LANG = 'lang',
+  ACCESS_TOKEN = 'accessToken',
+  REFRESH_TOKEN = 'refreshToken',
 }
