@@ -3578,6 +3578,13 @@ vue-i18n@^9.2.0-beta.30:
     "@intlify/vue-devtools" "9.2.0-beta.30"
     "@vue/devtools-api" "^6.0.0-beta.13"
 
+vue-native-websocket-vue3@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/vue-native-websocket-vue3/-/vue-native-websocket-vue3-3.1.4.tgz#84431734e3f1e656589dd35220928f1c735e5e05"
+  integrity sha512-Dqq+LaoV1ZgWhPGIEBKBIXMc+n+7Bh6BkAgnRrf3iV6NSOA7q42dQNOEPbJCzmn/L779ck56RT1UtoCZfIwq/w==
+  dependencies:
+    file-entry-cache "^6.0.1"
+
 vue-router@4:
   version "4.0.12"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.12.tgz#8dc792cddf5bb1abcc3908f9064136de7e13c460"

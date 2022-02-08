@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { PLATFORM_ENV, SUPPORT_LANG } from '@/constants';
-  import { _changeLang } from '@/lang';
   import { defineComponent } from 'vue';
 
   export default defineComponent({
     name: 'LandingPage',
     setup() {
       return {
-        PLATFORM_ENV,
+        input: '',
       };
     },
     computed: {
@@ -17,7 +15,10 @@
     },
     methods: {
       testStore() {
-        _changeLang(SUPPORT_LANG.VI);
+        this.$socket.send(this.input);
+      },
+      onChange(val: string) {
+        this.input = val;
       },
     },
   });
@@ -25,7 +26,12 @@
 
 <template>
   <div>LandingPage</div>
-  <div>{{ test }}</div>
+  <n-input
+    v-model="input"
+    type="text"
+    placeholder="Medium Input"
+    @change="onChange"
+  />
   <n-button @click="testStore">{{ $t('common.save') }}</n-button>
 </template>
 <style lang="css"></style>

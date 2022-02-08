@@ -1,4 +1,4 @@
-import { AUTH_STORE, ROOT_STORE } from '@/constants';
+import { AUTH_STORE, ROOT_STORE, SOCKET_STORE } from '@/constants';
 import { InjectionKey } from 'vue';
 import {
   ActionContext,
@@ -145,4 +145,90 @@ export type AuthStoreModuleTypes<S = AuthState> = Omit<
     payload?: Parameters<TypeAuthActions[K]>[1],
     options?: DispatchOptions
   ): ReturnType<TypeAuthActions[K]>;
+};
+
+/*---------- socket state ----------*/
+
+export type SocketState = {
+  isConnected: boolean;
+  message: string;
+  reconnectError: boolean;
+  heartBeatInterval: number;
+  heartBeatTimer: number;
+};
+
+export type TypeSocketMutations<S = SocketState> = {
+  [SOCKET_STORE.MUTATIONS.SOCKET_ONOPEN](state: S, payload: any): void;
+  [SOCKET_STORE.MUTATIONS.SOCKET_ONCLOSE](state: S, payload: any): void;
+  [SOCKET_STORE.MUTATIONS.SOCKET_ONERROR](state: S, payload: any): void;
+  [SOCKET_STORE.MUTATIONS.SOCKET_ONMESSAGE](state: S, payload: any): void;
+  [SOCKET_STORE.MUTATIONS.SOCKET_RECONNECT](state: S, payload: any): void;
+  [SOCKET_STORE.MUTATIONS.SOCKET_RECONNECT_ERROR](state: S, payload: any): void;
+};
+
+export type TypeSocketGetters = {
+  [SOCKET_STORE.GETTERS.SOCKET_ONOPEN](state: SocketState): any;
+  [SOCKET_STORE.GETTERS.SOCKET_ONCLOSE](state: SocketState): any;
+  [SOCKET_STORE.GETTERS.SOCKET_ONERROR](state: SocketState): any;
+  [SOCKET_STORE.GETTERS.SOCKET_ONMESSAGE](state: SocketState): any;
+  [SOCKET_STORE.GETTERS.SOCKET_RECONNECT](state: SocketState): any;
+  [SOCKET_STORE.GETTERS.SOCKET_RECONNECT_ERROR](state: SocketState): any;
+};
+
+export type AugmentedSocketActionContext = {
+  commit<K extends keyof TypeSocketGetters>(
+    key: K,
+    payload: Parameters<TypeSocketGetters[K]>[1]
+  ): ReturnType<TypeSocketGetters[K]>;
+} & Omit<ActionContext<SocketState, AppState>, 'commit'>;
+
+export interface TypeSocketActions {
+  [SOCKET_STORE.ACTIONS.SOCKET_ONOPEN](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+  [SOCKET_STORE.ACTIONS.SOCKET_ONCLOSE](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+  [SOCKET_STORE.ACTIONS.SOCKET_ONERROR](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+  [SOCKET_STORE.ACTIONS.SOCKET_ONMESSAGE](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+  [SOCKET_STORE.ACTIONS.SOCKET_RECONNECT](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+  [SOCKET_STORE.ACTIONS.SOCKET_RECONNECT_ERROR](
+    { commit }: AugmentedSocketActionContext,
+    payload: any
+  ): void;
+}
+
+export type SocketStoreModuleTypes<S = SocketState> = Omit<
+  VuexStore<S>,
+  'commit' | 'getters' | 'dispatch'
+> & {
+  commit<
+    K extends keyof TypeSocketMutations,
+    P extends Parameters<TypeSocketMutations[K]>[1]
+  >(
+    key: K,
+    payload?: P,
+    options?: CommitOptions
+  ): ReturnType<TypeSocketMutations[K]>;
+} & {
+  getters: {
+    [K in keyof TypeSocketGetters]: ReturnType<TypeSocketGetters[K]>;
+  };
+} & {
+  dispatch<K extends keyof TypeSocketActions>(
+    key: K,
+    payload?: Parameters<TypeSocketActions[K]>[1],
+    options?: DispatchOptions
+  ): ReturnType<TypeSocketActions[K]>;
 };

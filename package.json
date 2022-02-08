@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.0-beta.30",
+    "vue-native-websocket-vue3": "^3.1.4",
     "vue-router": "4",
     "vue3-cookies": "^1.0.6",
     "vuejs3-logger": "^1.0.0",
