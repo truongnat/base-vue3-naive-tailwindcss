@@ -5,7 +5,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import { API_TIMEOUT, baseURL, StatusCode } from '@constants';
+import { API_TIMEOUT, baseURL, StatusCode, STORAGE_KEYS } from '@constants';
 import { StorageUtils } from '@utils';
 
 const ApiClient = axios.create({
@@ -16,8 +16,8 @@ const ApiClient = axios.create({
 ApiClient.interceptors.request.use(
   async (config: AxiosRequestConfig) => {
     const token =
-      StorageUtils.localStorage.get('tk') ||
-      StorageUtils.sessionStorage.get('tk');
+      StorageUtils.localStorage.get(STORAGE_KEYS.TK) ||
+      StorageUtils.sessionStorage.get(STORAGE_KEYS.TK);
 
     if (!token) {
       console.log(`Application.token empty!`);
@@ -56,8 +56,8 @@ const injectToken = async (
 ): Promise<AxiosRequestConfig> => {
   try {
     const token =
-      StorageUtils.localStorage.get('tk') ||
-      StorageUtils.sessionStorage.get('tk');
+      StorageUtils.localStorage.get(STORAGE_KEYS.TK) ||
+      StorageUtils.sessionStorage.get(STORAGE_KEYS.TK);
 
     if (!token) {
       console.log(`Application.token empty!`);
