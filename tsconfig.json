@@ -70,10 +70,12 @@
     "shim-vue.d.ts",
     "env.d.ts",
     "global.d.ts",
-    "vue-prototype.d.ts"
+    "vue-prototype.d.ts",
+    "naive-ui"
   ],
   "exclude": [
     "node_modules",
-    "@vicons/ionicons5"
+    "@vicons/ionicons5",
+    "naive-ui"
   ]
 }

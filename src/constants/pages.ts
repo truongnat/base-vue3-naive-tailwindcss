@@ -6,4 +6,5 @@ export enum PagesKey {
   LOGIN_PAGE = 'LoginPage',
   SIGN_UP_PAGE = 'SignUpPage',
   CHAT_PAGE = 'ChatPage',
+  ROOMS_PAGE = 'RoomsPage',
 }
