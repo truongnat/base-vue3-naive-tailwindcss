@@ -14,6 +14,7 @@
   import { api } from '@/config';
   import { useI18n } from 'vue-i18n';
   import { useStore } from '@/store';
+  import { useRouter } from 'vue-router';
 
   export default defineComponent({
     name: 'LoginPage',
@@ -21,6 +22,7 @@
       const formRefLogin = ref<any>(null);
       const message = useMessage();
       const store = useStore();
+      const router = useRouter();
       const loading = ref(false);
       const modelRef = ref<IFormLogin>({ ...init_form });
       const i18n = useI18n();
@@ -50,7 +52,7 @@
                   modelRef.value.email as string,
                   modelRef.value.password as string
                 )
-                .then((result) => {
+                .then(async (result) => {
                   if (result.code === CODE_ERROR.USER_NOT_FOUND) {
                     return message.error(i18n.t('error.user_login_not_found'), {
                       closable: true,
@@ -77,6 +79,7 @@
                   store.dispatch(AUTH_STORE.ACTIONS.USER_INFO, {
                     userInfo: result?.user,
                   });
+                  return await router.push({ name: PagesKey.CHAT_PAGE });
                 });
             } else {
               console.log(errors);

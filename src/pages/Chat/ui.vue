@@ -1,6 +1,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { LogInOutline as LogInIcon } from '@vicons/ionicons5';
+  import { mapGetters } from 'vuex';
+  import { AUTH_STORE } from '@/constants';
 
   export default defineComponent({
     name: 'ChatPage',
@@ -12,15 +14,23 @@
       input: '',
       loading: true,
       messages: [],
+      username: '',
     }),
     computed: {
+      ...mapGetters([AUTH_STORE.GETTERS.USER_INFO]),
       chats() {
         return this.messages.join('\n') + '\n';
       },
     },
+    mounted() {
+      this.username = this.USER_INFO?.email || '--';
+    },
     methods: {
       onChange(val: string) {
         this.input = val;
+      },
+      onTest() {
+        console.log('show user :', this.USER_INFO);
       },
     },
   });
@@ -42,8 +52,13 @@
         round
         @change="onChange"
       />
-      <div class="flex justify-end">
-        <n-button icon-placement="left" type="success">
+      <div class="flex justify-end items-center space-x-3">
+        <n-gradient-text
+          gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+        >
+          {{ username }}
+        </n-gradient-text>
+        <n-button icon-placement="left" type="success" @click="onTest">
           <template #icon>
             <n-icon><log-in-icon /></n-icon>
           </template>
