@@ -8,10 +8,12 @@
   "error": {
     "email_already": "Error! Email already, please try again!",
     "occur_error": "Error! Something went wrong, please try again!",
-    "user_login_not_found": "Error! Account not found, please try again!"
+    "user_login_not_found": "Error! Account not found, please try again!",
+    "create_room": "Error! Create room failure!"
   },
   "success": {
     "user_register": "Success! User register successfully!",
-    "user_login": "Success! Start session logged!"
+    "user_login": "Success! Start session logged!",
+    "create_room": "Success! Start chat now!"
   }
 }

@@ -1,4 +1,5 @@
 import { AUTH_STORE, ROOT_STORE, SOCKET_STORE } from '@/constants';
+import { UserCredential } from 'firebase/auth';
 import { InjectionKey } from 'vue';
 import {
   ActionContext,
@@ -89,7 +90,7 @@ export type RootStoreModuleTypes<S = RootState> = Omit<
 
 export type AuthState = {
   isLogin: boolean;
-  userInfo: any;
+  userInfo: UserCredential;
 };
 
 export type TypeAuthMutations<S = AuthState> = {
@@ -97,12 +98,15 @@ export type TypeAuthMutations<S = AuthState> = {
     state: S,
     payload: { isLogin: boolean }
   ): void;
-  [AUTH_STORE.MUTATIONS.USER_INFO](state: S, payload: { userInfo: any }): void;
+  [AUTH_STORE.MUTATIONS.USER_INFO](
+    state: S,
+    payload: { userInfo: UserCredential }
+  ): void;
 };
 
 export type TypeAuthGetters = {
   [AUTH_STORE.GETTERS.IS_LOGIN](state: AuthState): boolean;
-  [AUTH_STORE.GETTERS.USER_INFO](state: AuthState): any;
+  [AUTH_STORE.GETTERS.USER_INFO](state: AuthState): UserCredential;
 };
 
 export type AugmentedAuthActionContext = {
@@ -120,7 +124,7 @@ export interface TypeAuthActions {
   [AUTH_STORE.ACTIONS.USER_INFO](
     { commit }: AugmentedAuthActionContext,
     payload: {
-      userInfo: any;
+      userInfo: UserCredential;
     }
   ): void;
 }

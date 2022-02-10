@@ -6,6 +6,13 @@
   });
 </script>
 <template>
-  <div></div>
+  <div class="w-1/3 mx-auto text-center">
+    <n-gradient-text
+      gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+      class="text-2xl py-10"
+    >
+      Chat Page
+    </n-gradient-text>
+  </div>
 </template>
 <style lang="less"></style>

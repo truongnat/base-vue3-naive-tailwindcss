@@ -16,3 +16,7 @@ export interface ITrimTextOpt {
   suffix?: string;
   prefix?: string;
 }
+
+export interface Doc<T> {
+  [key: string]: T;
+}

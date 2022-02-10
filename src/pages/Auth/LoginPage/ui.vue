@@ -79,7 +79,7 @@
                   store.dispatch(AUTH_STORE.ACTIONS.USER_INFO, {
                     userInfo: result?.user,
                   });
-                  return await router.push({ name: PagesKey.CHAT_PAGE });
+                  return await router.push({ name: PagesKey.ROOMS_PAGE });
                 });
             } else {
               console.log(errors);

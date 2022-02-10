@@ -3,83 +3,129 @@
 
   import { Add } from '@vicons/ionicons5';
   import { mapGetters } from 'vuex';
-  import { AUTH_STORE } from '@/constants';
-  import { firebase_db } from '@/config';
-  import { onValue, ref, set } from 'firebase/database';
-
-  type Doc = {
-    key: string;
-    value: string;
-  };
+  import { AUTH_STORE, PagesKey } from '@/constants';
+  import { createDocChat, getRooms } from '@/services';
+  import { ChatMember, ChatMessage, RoomChat } from '@/@types';
+  import { useLoadingBar, useMessage } from 'naive-ui';
+  import { useI18n } from 'vue-i18n';
 
   export default defineComponent({
     name: 'RoomsPage',
     components: { Add },
     setup() {
+      const message = useMessage();
+      const { t } = useI18n();
+      const loadingBar = useLoadingBar();
+
       return {
-        refDb: ref(firebase_db, 'rooms/'),
+        message,
+        t,
+        loadingBar,
       };
     },
     data: () => ({
       input: '',
       loading: false,
-      messages: [],
-      rooms: [] as any[],
       username: '',
       modalCreateRoom: false,
+      rooms: [] as RoomChat[],
     }),
     computed: {
       ...mapGetters([AUTH_STORE.GETTERS.USER_INFO]),
-      chats() {
-        return this.messages.join('\n') + '\n';
-      },
     },
     watch: {
-      modalCreateRoom(val) {
-        console.log('show val :', val);
-      },
+      //
     },
     created() {
-      onValue(this.refDb, (snapshot) => {
-        this.rooms = [];
-        snapshot.forEach((doc) => {
-          let item = {} as Doc;
-
-          item.value = doc.val();
-          item.key = `${Math.floor(Math.random() * 100000)}`;
-          this.rooms.push(item);
-        });
-        console.log('show rooms :', this.rooms);
-      });
+      this.fetchRooms();
     },
     mounted() {
       this.username = this.USER_INFO?.email || '--';
     },
     methods: {
-      submitCallback() {
-        this.$emit('onSubmit');
-      },
       onChange(val: string) {
         this.input = val;
       },
+
       cancelCallback() {
-        this.$emit('onCancel');
+        this.modalCreateRoom = false;
       },
-      onCreateRoom() {
-        // check exist
+
+      fetchRooms() {
+        this.loadingBar.start();
+        getRooms(this.USER_INFO.uid)
+          .then((data) => {
+            this.rooms = data;
+            this.loadingBar.finish();
+          })
+          .catch(() => {
+            this.loadingBar.error();
+          });
+      },
+      async onCreateRoom() {
         this.loading = true;
-        set(this.refDb, {
-          [`room_name_${Date.now()}`]: this.input,
-          created: new Date(),
+        const host: ChatMember = {
+          avatar: '',
+          email: this.USER_INFO.email,
+          uid: this.USER_INFO.uid,
+          name: this.USER_INFO.email,
+        };
+
+        const firstMessage: ChatMessage = {
+          content: 'Welcome to room',
+          sender: 'Admin',
+          senderId: 'Admin',
+          avatar: '',
+          createdAt: new Date(),
+        };
+
+        createDocChat<RoomChat>('rooms', {
+          name: this.input,
+          avatar: '',
+          lastMessage: 'Welcome to room',
+          host,
+          hostId: this.USER_INFO.uid,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          members: {
+            [this.USER_INFO.uid]: host,
+          },
+          messages: {
+            [`${Date.now()}`]: firstMessage,
+          },
         })
-          .then(() => {
-            this.modalCreateRoom = false;
+          .then((result) => {
+            this.message.success(this.t('success.create_room'), {
+              closable: true,
+              duration: 5000,
+            });
+            this.fetchRooms();
+
             this.loading = false;
+            this.modalCreateRoom = false;
           })
           .catch((e) => {
-            console.log('showww e : ', e);
+            this.message.error(this.t('error.create_room'), {
+              closable: true,
+              duration: 5000,
+            });
+            console.log('show error :', e);
             this.loading = false;
+            this.modalCreateRoom = false;
           });
+      },
+
+      countMember(data: any) {
+        return Object.entries(data).length;
+      },
+
+      navigateChat(id?: string) {
+        this.$router.push({
+          name: PagesKey.CHAT_PAGE,
+          params: {
+            id,
+          },
+        });
       },
     },
   });
@@ -105,10 +151,14 @@
       </n-button>
     </div>
     <n-list bordered>
-      <n-list-item v-for="i in 5" :key="i">
-        Hello {{ i }}
+      <n-list-item v-for="room in rooms" :key="room.id">
+        <div class="w-full flex flex-row items-center justify-between">
+          <span class="truncate w-28 text-left">Hello {{ room.name }}</span>
+          <span>{{ countMember(room.members) }} members</span>
+          <span class="truncate w-28">{{ room.lastMessage }}</span>
+        </div>
         <template #suffix>
-          <n-button round>Chat now</n-button>
+          <n-button round @click="navigateChat(room.hostId)">Chat now</n-button>
         </template>
       </n-list-item>
     </n-list>
