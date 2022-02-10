@@ -7,9 +7,11 @@
   },
   "error": {
     "email_already": "Lỗi! Email đã tồn tại, vui lòng thử lại!",
-    "occur_error": "Lỗi! Đã có lỗi xảy ra, vui lòng thử lại!"
+    "occur_error": "Lỗi! Đã có lỗi xảy ra, vui lòng thử lại!",
+    "user_login_not_found": "Lỗi! Tài khoảng không tồn tại, vui lòng thử lại!"
   },
   "success": {
-    "user_register": "Thành công! Đăng ký người dùng thành công!"
+    "user_register": "Thành công! Đăng ký người dùng thành công!",
+    "user_login": "Thành công! Bắt đầu phiên đăng nhập!"
   }
 }

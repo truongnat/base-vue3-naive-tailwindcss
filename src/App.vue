@@ -1,15 +1,31 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
+  import hljs from 'highlight.js/lib/core';
+
+  hljs.registerLanguage('naive-log', () => ({
+    contains: [
+      {
+        className: 'number',
+        begin: /\d+/,
+      },
+    ],
+  }));
 
   export default defineComponent({
-    components: {},
+    setup() {
+      return {
+        hljs,
+      };
+    },
   });
 </script>
 
 <template>
-  <n-notification-provider>
-    <n-message-provider>
-      <router-view></router-view>
-    </n-message-provider>
-  </n-notification-provider>
+  <n-config-provider :hljs="hljs">
+    <n-notification-provider>
+      <n-message-provider>
+        <router-view></router-view>
+      </n-message-provider>
+    </n-notification-provider>
+  </n-config-provider>
 </template>

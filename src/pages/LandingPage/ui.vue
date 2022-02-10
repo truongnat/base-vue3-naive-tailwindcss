@@ -3,35 +3,21 @@
 
   export default defineComponent({
     name: 'LandingPage',
+
     setup() {
-      return {
-        input: '',
-      };
+      return {};
     },
-    computed: {
-      test() {
-        return import.meta.env.VITE_BASE_URL;
-      },
-    },
-    methods: {
-      testStore() {
-        this.$socket.send(this.input);
-      },
-      onChange(val: string) {
-        this.input = val;
-      },
-    },
+    data: () => ({}),
   });
 </script>
 
 <template>
-  <div>LandingPage</div>
-  <n-input
-    v-model="input"
-    type="text"
-    placeholder="Medium Input"
-    @change="onChange"
-  />
-  <n-button @click="testStore">{{ $t('common.save') }}</n-button>
+  <div class="w-1/3 mx-auto text-center">
+    <n-gradient-text
+      gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+      class="text-2xl py-10"
+    >
+      Landing Page
+    </n-gradient-text>
+  </div>
 </template>
-<style lang="css"></style>

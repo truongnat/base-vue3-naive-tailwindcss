@@ -13,6 +13,7 @@ interface ImportMetaEnv {
   readonly VITE_FIREBASE_APP_ID?: string;
   readonly VITE_MEASUREMENT_ID?: string;
   readonly VITE_WEB_PUSH_NOTI?: string;
+  readonly VITE_SOCKET_URL?: string;
   // more env variables...
 }
 

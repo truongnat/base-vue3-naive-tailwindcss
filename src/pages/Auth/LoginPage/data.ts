@@ -38,3 +38,6 @@ export const init_form: IFormLogin = {
   roleType: null,
   saveLogin: false,
 };
+export const CODE_ERROR = {
+  USER_NOT_FOUND: 'auth/user-not-found',
+};

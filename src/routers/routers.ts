@@ -2,6 +2,7 @@ import { PagesKey } from '@constants';
 import { RouteRecordRaw } from 'vue-router';
 
 import {
+  ChatPage,
   DashboardPage,
   ErrorPage,
   LandingPage,
@@ -21,7 +22,11 @@ export const routers: Array<RouteRecordRaw> = [
     name: PagesKey.DASHBOARD_PAGE,
     component: DashboardPage,
   },
-
+  {
+    path: '/chat',
+    name: PagesKey.CHAT_PAGE,
+    component: ChatPage,
+  },
   // router throw error page
   {
     path: '/:pathMatch(.*)*',

@@ -12,9 +12,9 @@
   import { _isValidEmail } from '@/utils/validation';
   import { api } from '@config';
   import { useI18n } from 'vue-i18n';
-  import { StorageUtils } from '@/utils';
   import { ArrowBack } from '@vicons/ionicons5';
   import { PagesKey } from '@constants';
+  import { useRouter } from 'vue-router';
 
   export default defineComponent({
     name: 'SignUpPage',
@@ -25,6 +25,7 @@
       const rPasswordFormItemRef = ref<any>(null);
       const message = useMessage();
       const modelRef = ref<IModelSignUp>({ ...init_form });
+      const router = useRouter();
       const loading = ref(false);
 
       function validatePasswordStartWith(rule: FormRules, value: string) {
@@ -73,33 +74,22 @@
                   modelRef.value.email as string,
                   modelRef.value.password as string
                 )
-                .then((result) => {
+                .then(async (result) => {
                   loading.value = false;
                   if (result.code === CODE_ERROR.EMAIL_ALREADY) {
-                    message.error(i18n.t('error.email_already'), {
+                    return message.error(i18n.t('error.email_already'), {
                       closable: true,
                       duration: 5000,
                     });
-                    return;
                   }
 
                   message.success(i18n.t('success.user_register'), {
                     closable: true,
                     duration: 5000,
                   });
-
-                  const saveToken = [
-                    {
-                      accessToken: result.user.accessToken,
-                    },
-                    {
-                      refreshToken: result.user.refreshToken,
-                    },
-                  ];
-                  StorageUtils.sessionStorage.setMul(saveToken);
-                  console.dir(result);
+                  return await router.push({ name: PagesKey.LOGIN_PAGE });
                 })
-                .catch(() => {
+                .catch((e) => {
                   loading.value = false;
                   message.error(i18n.t('error.occur_error'), {
                     closable: true,

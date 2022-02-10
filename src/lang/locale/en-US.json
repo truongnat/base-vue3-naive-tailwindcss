@@ -7,9 +7,11 @@
   },
   "error": {
     "email_already": "Error! Email already, please try again!",
-    "occur_error": "Error! Something went wrong, please try again!"
+    "occur_error": "Error! Something went wrong, please try again!",
+    "user_login_not_found": "Error! Account not found, please try again!"
   },
   "success": {
-    "user_register": "Success! User register successfully!"
+    "user_register": "Success! User register successfully!",
+    "user_login": "Success! Start session logged!"
   }
 }

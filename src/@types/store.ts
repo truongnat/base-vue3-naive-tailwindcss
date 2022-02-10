@@ -14,10 +14,12 @@ export const key: InjectionKey<VuexStore<AppState>> = Symbol();
 export type AppState = {
   rootState: RootState;
   authState: AuthState;
+  socket: SocketState;
 };
 
-export type Store = RootStoreModuleTypes<Pick<AppState, 'rootState'>> &
-  AuthStoreModuleTypes<Pick<AppState, 'rootState'>>;
+export type Store = AuthStoreModuleTypes<Pick<AppState, 'rootState'>> &
+  SocketStoreModuleTypes<Pick<AppState, 'rootState'>> &
+  RootStoreModuleTypes<Pick<AppState, 'rootState'>>;
 
 /*---------- root state ----------*/
 
