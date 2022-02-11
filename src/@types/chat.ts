@@ -1,10 +1,15 @@
+export class TimeStamp {
+  seconds!: number;
+  nanoseconds!: number;
+}
+
 export interface ChatMessage {
   content?: string;
-  sender?: string;
-  senderId?: string;
-  avatar?: string;
-  createdAt?: Date;
+  sender: ChatMember;
+  createdAt?: TimeStamp | Date;
+  updatedAt?: TimeStamp | Date;
   id?: string;
+  groupId?: string;
 }
 
 export interface ChatMember {
@@ -21,10 +26,9 @@ export interface RoomChat {
   lastMessage?: string;
   host?: ChatMember;
   hostId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: TimeStamp | Date;
+  updatedAt?: TimeStamp | Date;
   members?: { [key: string]: ChatMember };
-  messages?: { [key: string]: ChatMessage };
 }
 
 export interface RoomChatData {

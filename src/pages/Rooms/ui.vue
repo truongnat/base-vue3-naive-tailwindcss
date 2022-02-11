@@ -4,7 +4,13 @@
   import { Add } from '@vicons/ionicons5';
   import { mapGetters } from 'vuex';
   import { AUTH_STORE, PagesKey } from '@/constants';
-  import { createDocChat, getRooms } from '@/services';
+  import {
+    createDocChat,
+    createFirebaseMember,
+    createFirebaseRoom,
+    getRoomsByUserId,
+    sendFirebaseMessage,
+  } from '@/services';
   import { ChatMember, ChatMessage, RoomChat } from '@/@types';
   import { useLoadingBar, useMessage } from 'naive-ui';
   import { useI18n } from 'vue-i18n';
@@ -53,7 +59,7 @@
 
       fetchRooms() {
         this.loadingBar.start();
-        getRooms(this.USER_INFO.uid)
+        getRoomsByUserId(this.USER_INFO.uid)
           .then((data) => {
             this.rooms = data;
             this.loadingBar.finish();
@@ -70,16 +76,13 @@
           uid: this.USER_INFO.uid,
           name: this.USER_INFO.email,
         };
-
-        const firstMessage: ChatMessage = {
-          content: 'Welcome to room',
-          sender: 'Admin',
-          senderId: 'Admin',
+        const sender: ChatMember = {
           avatar: '',
-          createdAt: new Date(),
+          email: 'admin@gmail.com',
+          name: 'Admin',
         };
 
-        createDocChat<RoomChat>('rooms', {
+        createFirebaseRoom({
           name: this.input,
           avatar: '',
           lastMessage: 'Welcome to room',
@@ -88,18 +91,23 @@
           createdAt: new Date(),
           updatedAt: new Date(),
           members: {
-            [this.USER_INFO.uid]: host,
-          },
-          messages: {
-            [`${Date.now()}`]: firstMessage,
+            [Date.now()]: host,
           },
         })
-          .then((result) => {
+          .then(async (result) => {
             this.message.success(this.t('success.create_room'), {
               closable: true,
               duration: 5000,
             });
             this.fetchRooms();
+            await sendFirebaseMessage({
+              sender,
+              content: 'Welcome to room',
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              groupId: result.id,
+            });
+            await createFirebaseMember(host);
 
             this.loading = false;
             this.modalCreateRoom = false;
@@ -150,18 +158,27 @@
         Create Room
       </n-button>
     </div>
-    <n-list bordered>
-      <n-list-item v-for="room in rooms" :key="room.id">
-        <div class="w-full flex flex-row items-center justify-between">
-          <span class="truncate w-28 text-left">Hello {{ room.name }}</span>
-          <span>{{ countMember(room.members) }} members</span>
-          <span class="truncate w-28">{{ room.lastMessage }}</span>
-        </div>
-        <template #suffix>
-          <n-button round @click="navigateChat(room.hostId)">Chat now</n-button>
-        </template>
-      </n-list-item>
-    </n-list>
+    <n-scrollbar style="max-height: 700px">
+      <n-list bordered>
+        <n-list-item v-for="room in rooms" :key="room.id">
+          <div class="w-full flex flex-row items-center justify-between">
+            <div class="text-left flex flex-col items-start">
+              <span class="text-base font-medium truncate w-36">
+                Room: {{ room.name }}
+              </span>
+              <span class="text-base font-medium truncate w-36">
+                Host: {{ room.host?.name || room.host?.email }}
+              </span>
+            </div>
+            <!-- <span>{{ countMember(room.members) }} members</span> -->
+            <span class="truncate w-28">{{ room.lastMessage }}</span>
+          </div>
+          <template #suffix>
+            <n-button round @click="navigateChat(room.id)"> Chat now </n-button>
+          </template>
+        </n-list-item>
+      </n-list>
+    </n-scrollbar>
 
     <n-modal
       v-model:show="modalCreateRoom"
