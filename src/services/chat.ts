@@ -78,6 +78,7 @@ export async function getMessagesByRoomKey(key: string) {
   const results: ChatMessage[] = [];
 
   snapshot.docChanges().forEach((item) => {
+    // @ts-ignore
     const data: ChatMessage = item.doc.data();
 
     results.push({
