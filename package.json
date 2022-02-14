@@ -11,6 +11,7 @@
   "dependencies": {
     "@originjs/vite-plugin-require-context": "^1.0.9",
     "@vicons/ionicons5": "^0.11.0",
+    "@vueuse/core": "^7.6.2",
     "axios": "^0.25.0",
     "dotenv": "^14.3.2",
     "firebase": "^9.6.5",
