@@ -45,42 +45,7 @@
           e.preventDefault();
           formRefLogin.value.validate((errors: FormValidationError) => {
             if (!errors) {
-              loading.value = true;
-
-              api.auth
-                ._firebaseLogin(
-                  modelRef.value.email as string,
-                  modelRef.value.password as string
-                )
-                .then(async (result) => {
-                  if (result.code === CODE_ERROR.USER_NOT_FOUND) {
-                    return message.error(i18n.t('error.user_login_not_found'), {
-                      closable: true,
-                      duration: 5000,
-                    });
-                  }
-                  message.success(i18n.t('success.user_login'), {
-                    closable: true,
-                    duration: 5000,
-                  });
-                  const saveToken = [
-                    {
-                      accessToken: result?.user?.accessToken,
-                    },
-                    {
-                      refreshToken: result?.user?.refreshToken,
-                    },
-                  ];
-                  StorageUtils.sessionStorage.setMul(saveToken);
-
-                  store.dispatch(AUTH_STORE.ACTIONS.IS_LOGIN, {
-                    isLogin: true,
-                  });
-                  store.dispatch(AUTH_STORE.ACTIONS.USER_INFO, {
-                    userInfo: result?.user,
-                  });
-                  return await router.push({ name: PagesKey.ROOMS_PAGE });
-                });
+              // handle logic login
             } else {
               console.log(errors);
               message.error('Invalid');

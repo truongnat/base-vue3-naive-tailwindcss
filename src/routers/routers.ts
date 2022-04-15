@@ -2,14 +2,12 @@ import { PagesKey } from '@constants';
 import { RouteRecordRaw } from 'vue-router';
 
 import {
-  RoomsPage,
   DashboardPage,
   ErrorPage,
   LandingPage,
   LoginPage,
   NotFoundPage,
   SignUpPage,
-  RoomChat,
 } from '@pages';
 
 export const routers: Array<RouteRecordRaw> = [
@@ -23,16 +21,7 @@ export const routers: Array<RouteRecordRaw> = [
     name: PagesKey.DASHBOARD_PAGE,
     component: DashboardPage,
   },
-  {
-    path: '/rooms',
-    name: PagesKey.ROOMS_PAGE,
-    component: RoomsPage,
-  },
-  {
-    path: '/rooms/chat/:id',
-    name: PagesKey.CHAT_PAGE,
-    component: RoomChat,
-  },
+
   // router throw error page
   {
     path: '/:pathMatch(.*)*',

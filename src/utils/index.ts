@@ -10,4 +10,3 @@ export * from './platform';
 export * from './files';
 export * from './scrollLock';
 export * from './validation';
-export * from './ws';

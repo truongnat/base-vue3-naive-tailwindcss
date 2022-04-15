@@ -68,34 +68,7 @@
           e.preventDefault();
           formRefSignUp.value.validate((errors: FormValidationError) => {
             if (!errors) {
-              loading.value = true;
-              api.auth
-                ._firebaseRegisterUser(
-                  modelRef.value.email as string,
-                  modelRef.value.password as string
-                )
-                .then(async (result) => {
-                  loading.value = false;
-                  if (result.code === CODE_ERROR.EMAIL_ALREADY) {
-                    return message.error(i18n.t('error.email_already'), {
-                      closable: true,
-                      duration: 5000,
-                    });
-                  }
-
-                  message.success(i18n.t('success.user_register'), {
-                    closable: true,
-                    duration: 5000,
-                  });
-                  return await router.push({ name: PagesKey.LOGIN_PAGE });
-                })
-                .catch((e) => {
-                  loading.value = false;
-                  message.error(i18n.t('error.occur_error'), {
-                    closable: true,
-                    duration: 5000,
-                  });
-                });
+              // handle logic signup
             } else {
               message.error('Invalid Form');
             }
