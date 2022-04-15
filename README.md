@@ -15,9 +15,6 @@
 - I18n
 - VueX Cache
 - utils function
-- Socket IO
-- Authentication firebase 
-- Chat Realtime with firebase
 
 
 ## Recommended IDE Setup
